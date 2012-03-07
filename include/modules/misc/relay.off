@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+# relay module
+# relay defined irc network/channel through xinudox
+# @author wired
+######################################################
+package relay;
+
+use strict;
+use warnings;
+use IO::Socket::INET;
+
+our $version = "1.0 by wired";
+
+BEGIN {
+	commands->add('channel', 'owner', '!relay', 'relay->start($nickname, $channel, $parameters);');
+}
+
+sub start {
+	my ($nickname, $channel, @data) = ($_[1], $_[2], split(" ", $_[3]));
+	my ($rserver, $rchannel) = ($data[0], $data[1]);
+		
+	my $rirc = IO::Socket::INET->new(PeerAddr => $rserver, PeerPort => '6667', Proto => 'tcp', Timeout =>  '10') or 
+	commands->msg($channel, 'Unable to establish connection to '.$rserver.'');
+
+	$rirc->send("NICK $config::nickname");
+	$rirc->send("USER $config::ident 8 * :" . int(rand(5000)) . "\r\n");
+	    
+	
+	while(my $rdata = <$rirc>) {
+		if($rdata =~ m/^\:(.*?)\!(.*?)\@(.*?) PRIVMSG (.*?) :(.*?)$/) { 
+			my ($unick, $uident, $uhost, $uchan, $txt) = ($1, $2, $3, $4, $5);
+			
+			$rirc->send("JOIN $rchannel\r\n");		
+			commands->send("PRIVMSG $channel :<$unick> $txt\r\n");
+			
+		}
+	}
+}
+
+1;

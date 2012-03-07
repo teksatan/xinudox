@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+
+package example; # always use the file name
+
+use strict;
+use warnings;
+
+#$version is required by modules.pm
+our $version = "1.0 blah blah";
+
+
+#adding/changing/removing commands
+#soon it'll have the capabilities of commands->catch alowing dynamic addins of regex catching
+BEGIN {
+
+  commands->add('channel', 'owner', '!example', 'my $txt = "This is an example"; commands->send("PRIVMSG $channel \:$text");');
+  commands->add('query', 'owner', '!example', 'my $txt = "This is an example"; commands->send("PRIVMSG $nickname \:$text");');
+  commands->add('notice', 'owner', '!example', 'my $txt = "This is an example"; commands->send("NOTICE $nickname \:$text");');
+  
+  commands->change('channel', 'owner', '!example', 'commands->send("PRIVMSG $channel :This is an updated example");');
+  commands->change('query', 'owner', '!example', 'commands->send("PRIVMSG $nickname \:This is an updated example");');
+  commands->change('notice', 'owner', '!example', 'commands->send("NOTICE $nickname \:This is an updated example");');
+
+  commands->del('notice', 'owner', '!example');
+  commands->del('channel', 'owner', '!example');
+  commands->del('query', 'owner', '!example');
+}
+
+sub something {
+ my ($arg1, $arg2) = ($_[1], $_[2]);
+ #do something with arguments
+
+ #try and always return at end of each subroutine
+ return 1;
+}
+
+
+#return value for module load
+1;

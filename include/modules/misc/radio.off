@@ -1,0 +1,53 @@
+#!/usr/bin/perl
+# xinudox radio module
+# motivated by kiyoura and i stole some of your parsing
+# @author wired
+
+package radio;
+1;
+use strict;
+use warnings;
+use Switch;
+use LWP;
+use IO::Socket::INET;
+
+our $version = "1.0 wired & kiyoura";
+
+BEGIN {
+  commands->add('channel', 'normal', '!radio', 'radio->playing($nickname, $channel, $parameters);');
+}
+
+our $radio = 'http://anondox.com:8000/admin.cgi';
+open(our $song, '<db/radio/playing.song');
+
+our $track = $song->getline;
+
+our $url = LWP::UserAgent->new("Mozilla");
+
+sub parse {
+	$url->agent('Mozilla');
+	my $res = $url->get($radio.'?pass=b0ngh1t!&mode=viewxml');
+	$res->content =~ /<$_[0]>(.*?)<\/$_[0]>/;
+	my $info = $1;
+	$info =~ s/&#x(.*?){2};/pack('c',hex($1))/ge
+	unless ! defined $info;
+	return defined $info ? $info : 0;
+}
+
+sub playing {
+	my ($nickname, $channel, @data) = ($_[1], $_[2], $_[3]);
+
+	open(my $song, '+>db/radio/playing.song') or die $!;
+	if(defined $song->getline && $song->getline ne &parse('SONGTITLE')) {
+		print $song &parse('SONGTITLE');
+		commands->send("PRIVMSG $channel: &parse('SONGTITLE')\r\n");
+		
+#		commands->send("PRIVMSG $channel testingblah Current Song: \x02&parse('SONGTITLE')\x02 Listeners: \x02&parse('CURRENTLISTENERS')\x02\r\n");
+		next;
+	}
+	
+	print $song &parse('SONGTITLE');
+	close($song);
+}
+
+1;

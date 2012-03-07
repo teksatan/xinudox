@@ -1,0 +1,193 @@
+### Tue May 25 07:16:12 2010 fml ###
+	Can't locate WWW/FMyLife.pm in @INC (@INC contains: C:/Perl64/site/lib C:/Perl64/lib .) at include/modules/misc/fml.pm line 10.
+BEGIN failed--compilation aborted at include/modules/misc/fml.pm line 10.
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+### Tue May 25 07:17:22 2010 fml ###
+	Can't locate WWW/FMyLife.pm in @INC (@INC contains: C:/Perl64/site/lib C:/Perl64/lib .) at include/modules/misc/fml.pm line 10.
+BEGIN failed--compilation aborted at include/modules/misc/fml.pm line 10.
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+### Tue May 25 07:17:25 2010 fml ###
+	Can't locate WWW/FMyLife.pm in @INC (@INC contains: C:/Perl64/site/lib C:/Perl64/lib .) at include/modules/misc/fml.pm line 10.
+BEGIN failed--compilation aborted at include/modules/misc/fml.pm line 10.
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+### Tue May 25 07:17:45 2010 fml ###
+	Can't locate WWW/FMyLife.pm in @INC (@INC contains: C:/Perl64/site/lib C:/Perl64/lib .) at include/modules/misc/fml.pm line 10.
+BEGIN failed--compilation aborted at include/modules/misc/fml.pm line 10.
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+### Tue May 25 07:20:07 2010 users ###
+	install_driver(mysql) failed: Can't locate DBD/mysql.pm in @INC (@INC contains: C:/Perl64/site/lib C:/Perl64/lib .) at (eval 50) line 3, <$song> line 1.
+Perhaps the DBD::mysql perl module hasn't been fully installed,
+or perhaps the capitalisation of 'mysql' isn't right.
+Available drivers: CSV, DBM, ExampleP, File, Gofer, ODBC, Proxy, SQLite, Sponge.
+ at include/modules/src/sql.pm line 16
+Compilation failed in require at include/src/modules.pm line 34, <$song> line 1.
+
+###
+### Sat Jan 22 15:31:22 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+
+### Sat Jan 22 15:31:23 2011 users ###
+	can't connect to mysql database xinudox
+Compilation failed in require at include/src/modules.pm line 34, <$song> line 1.
+
+###
+
+### Tue Feb 22 02:51:05 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+
+### Tue Feb 22 02:51:07 2011 users ###
+	can't connect to mysql database xinudox
+Compilation failed in require at include/src/modules.pm line 34, <$song> line 1.
+
+###
+
+### Tue Feb 22 02:54:23 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+
+### Tue Feb 22 02:54:24 2011 users ###
+	can't connect to mysql database xinudox
+Compilation failed in require at include/src/modules.pm line 34, <$song> line 1.
+
+###
+
+### Tue Feb 22 02:54:49 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+
+### Tue Feb 22 02:54:51 2011 users ###
+	can't connect to mysql database xinudox
+Compilation failed in require at include/src/modules.pm line 34, <$song> line 1.
+
+###
+
+### Tue Feb 22 03:00:44 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+
+### Tue Feb 22 03:00:45 2011 users ###
+	can't connect to mysql database xinudox
+Compilation failed in require at include/src/modules.pm line 34, <$song> line 1.
+
+###
+
+### Tue Feb 22 03:30:26 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+
+### Tue Feb 22 03:30:26 2011 users ###
+	Global symbol "$usrDir" requires explicit package name at include/modules/users/users.pm line 48, <$song> line 1.
+Global symbol "$usrDir" requires explicit package name at include/modules/users/users.pm line 51, <$song> line 1.
+Compilation failed in require at include/src/modules.pm line 34, <$song> line 1.
+
+###
+
+### Tue Feb 22 03:33:29 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+
+### Tue Feb 22 03:34:54 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+
+### Tue Feb 22 03:36:41 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34.
+
+###
+
+### Tue Feb 22 03:49:08 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###
+
+### Tue Feb 22 03:51:07 2011 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###
+
+### Thu Jul  1 04:28:58 2010 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###
+
+### Thu Jul  1 04:29:38 2010 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###
+
+### Thu Jul  1 04:31:21 2010 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###
+
+### Thu Jul  1 04:35:39 2010 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###
+
+### Thu Jul  1 04:37:20 2010 channel ###
+	Can't call method "send" on an undefined value at include/modules/misc/google.pm line 32, <GEN1> line 102.
+
+###
+
+### Thu Jul  1 04:47:30 2010 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###
+
+### Sun Jul  4 08:33:53 2010 google ###
+	Found no listings matching Hunk%20of%20shit%20car
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###
+
+### Wed Mar  7 00:02:19 2012 google ###
+	Can't locate LWP/UserAgent.pm in @INC (@INC contains: /etc/perl /usr/local/lib/perl/5.10.1 /usr/local/share/perl/5.10.1 /usr/lib/perl5 /usr/share/perl5 /usr/lib/perl/5.10 /usr/share/perl/5.10 /usr/local/lib/site_perl .) at include/modules/misc/google.pm line 54, <STDIN> line 1.
+BEGIN failed--compilation aborted at include/modules/misc/google.pm line 54, <STDIN> line 1.
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###
+### Wed Mar  7 00:06:34 2012 users ###
+	Can't call method "fetchrow_hashref" on an undefined value at include/modules/users/users.pm line 40, <STDIN> line 1.
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###
+### Wed Mar  7 00:08:04 2012 users ###
+	Can't call method "fetchrow_hashref" on an undefined value at include/modules/users/users.pm line 40, <STDIN> line 1.
+Compilation failed in require at include/src/modules.pm line 34, <STDIN> line 1.
+
+###

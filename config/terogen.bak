@@ -1,0 +1,121 @@
+#!/usr/bin/perl
+
+package config;
+use strict;
+use warnings;
+
+
+### bot configuration
+our $server = 'irc.terogen.com';
+our $nickname = 'xinudox';
+our $ident = 'xinu';
+our $realname = 'anondox bot';
+our $channel = '#epic,#invasion,#terogen';
+our $default_modes = '+nt';
+our $default_topic = 'Welcome to %c niggers <3';
+our $nickserv = '1.3`=-lol';
+our $operup = 0; #should we oper on connect keep it 0 use -o on commandline?
+our $oper = 'xinudox x1nud0x!%^';
+our $debug = 0;
+our $salt = 536784;
+our $logging = 0;
+our $daemonize = 0;
+our $logsize = 50000;
+our $pid;
+
+our @versionreply = (
+  "mIRC v6.2 Khaled Mardam-Bey",
+  "irssi v0.8.10 - running on Linux i686",
+  "xchat 2.6.2-1 Windows XP [AMD/2.40GHz]",
+  "xchat 2.8.0 Linux 2.6.20.3 [i686/1.70GHz]",
+  "Konversation 1.0.1 (C) 2002-2006 by the Konversation team",
+  "anondox.org irc bot \@authors wired,tak,glitch",
+  "TELNET BITCH GTFO"
+);
+our @killreply = (
+  "you fag",
+  "bitch",
+  "you fuckin cunt",
+  "and go eat shit",
+  "fucking jewish prick",
+  "n gtfo mung gobblin"
+);
+
+### Admin configuration
+our %admin;
+### database configuration
+
+our $dbname = 'xinudox';
+our $dbhost = 'localhost';
+our $dbuser = $dbname;
+our $dbpassword = '3picshity0$$';
+
+
+### Links configuration
+our @links = (
+  "http://www.anondox.org/",
+  "http://titsorgtfo.info/",
+  "http://imgdump.org",
+  "http://r4ge.us",
+  "http://c0kedup.info",
+  "http://raidchan.org",
+  "http://freesteam.org",
+);
+
+#delete this next line to allow the bot to run.
+# my $die = "You need to edit the config retard.\n";
+
+
+#### DONT TOUCH ANYTHING BELOW THIS LINE
+our @includes = <./include/*.pm>;
+our @classes = <./include/classes/*.class>;
+our @games = <./games/*.pm>;
+
+our $opered = 0;
+our $version = "xinudox version 2.4 beta. perl~ OOP";
+our $serversidnumber = 1;
+our $bots = 0;
+our $uptime = 0;
+our $users = 2;
+our $channels = $config::channel;
+our $logs = 0;
+our $additional = "I love pussy!";
+our @channels;
+
+
+sub save {
+  sql->conn();
+  my $nickname = sql->quote($config::nickname);
+  my $server = sql->quote($config::server);
+  my $channels = sql->quote(join(" ", @config::channels));
+  sql->do("UPDATE config SET inuse = 1"); # should we load this db @ start over our config.pl?
+  sql->do("UPDATE config SET nickname = $nickname;");
+  sql->do("UPDATE config SET server = $server;");
+  sql->do("UPDATE config SET opered = $config::operup;");
+  sql->do("UPDATE config SET daemonize = $config::daemonize;");
+  sql->do("UPDATE config SET logging = $config::logging;");
+  sql->close();
+}
+
+sub get {
+    sql->conn();
+    sql->prepare("SELECT * FROM config");
+    $sql::sth->execute();
+    while (my $ref = $sql::sth->fetchrow_hashref()) {
+      if ($ref->{'inuse'} == 0) {
+        $sql::sth->finish();
+        sql->close;
+        return 0;
+      }
+      $config::nickname = $ref->{'nickname'};
+      $config::server = $ref->{'server'};
+      $config::defmodes = $ref->{'modes'};
+      $config::operup = $ref->{'opered'};
+      $config::daemonize = $ref->{'daemonize'};
+      $config::logging = $ref->{'logging'};
+    }
+    sql->do("UPDATE config SET inuse = 0");
+    $sql::sth->finish();
+    sql->close();
+}
+1;

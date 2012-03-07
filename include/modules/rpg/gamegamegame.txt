@@ -1,0 +1,4 @@
+create entry for storyline based game
+i.e. once upon a time in IRC there was a fatbrit called crazor etc.etc. idk lol
+
+figure out exactly what info user handlers need eg. passwords scores stats etc.

@@ -1,0 +1,2 @@
+[18:36:14] <bars> ssh glitch@67.21.66.245 
+[18:36:15] <bars> pass JqB6C9tVD3CSL

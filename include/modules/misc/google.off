@@ -1,0 +1,103 @@
+#!/usr/bin/perl
+
+package google;
+use strict;
+use warnings;
+use IO::Socket;
+use IO::Select;
+#use threads;
+
+our $gsock;
+
+our $version = "1.0 glitch & wired";
+BEGIN {
+  commands->add('channel', 'normal', '!google', 'google->gsearch($nickname, $channel, $parameters);');
+}
+sub gconn {
+	my ($channel) = ($_[1]);
+
+	my $gsock = IO::Socket::INET->new(PeerAddr => 'www.google.com', PeerPort => '80', Proto => 'tcp', Timeout => '10')
+	or commands->send("PRIVMSG $channel Unable to establish google connection.\r\n");
+	my $select = IO::Select->new();
+}
+
+sub gsearch {
+	&gconn();
+	my ($nickname, $channel, @search) = ($_[1], $_[2], $_[3]);
+
+	if (!$search[0]) {
+		commands->send("PRIVMSG $channel No query specified please specify a search term.\r\n");
+	}
+
+	$gsock->send("GET /search/sss?q=".@search." HTTP/1.1\r\nUser-agent: anondox (Mozilla Compatible)\r\nConnection: Close\r\n\r\n");
+	
+	while(my $data = $gsock->getline) {
+		chomp($data);
+		next if !$data;
+		#if $data =~ /\/url\?q=(.+?q=.+?)&/;
+		commands->send("PRIVMSG $channel $data\r\n");
+	}
+}
+
+
+
+
+##########################
+##########################
+##########################
+#!/opt/local/bin/perl
+ 
+use strict;
+use warnings;
+ 
+use Data::Dumper;
+use LWP::UserAgent;
+ 
+my $default = "Hunk of shit car";
+$\ = "\n";
+ 
+sub main {
+        my $lowest = 0;
+        my $highest = 0;
+        my $amt = 0;
+        my $count = 0;
+        my $average;
+        my $url = "http://losangeles.craigslist.org/search/cta?query=";
+        my $search_term = $ARGV[0] ? $ARGV[0] : $default;
+        $search_term =~ s/([^A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg;
+        my $query = join('', $url, $search_term);
+ 
+        my $ua = LWP::UserAgent->new( agent => 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)' );
+        my $resp = $ua->get($query);
+        my $shizzle = $resp->content() if ($resp->is_success());
+        die("Found no listings matching $search_term\n") if ($shizzle =~ /Nothing found for that search/i);
+        foreach my $word (split(/\s/, $shizzle)) {
+                if ( $word =~ m/^\$/) {
+                        $word =~ s/(\$|,)//g ;
+                        if ( $word =~ m/^\d+$/ ) {
+                                if ($lowest eq 0) {
+                                        $lowest = $word ;
+                                } elsif ( $word < $lowest ) {
+                                        $lowest = $word ;
+                                }
+                                if ($highest eq 0) {
+                                        $highest = $word ;
+                                } elsif ( $word > $highest ) {
+                                        $highest = $word ;
+                                }
+                                $amt += $word ;
+                                $count++;
+                        }
+                }
+        }
+        $average = ( $amt / $count ) ;
+        print "Found a total of $count matches.";
+        print "lowest:\t\t\$$lowest";
+        print "highest:\t\$$highest";
+        printf("Average:\t\$%.2f", $average);
+        print "\n\n";
+}
+ 
+main();
+#######################################
+1;

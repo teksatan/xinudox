@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+# xinudox radio module
+# motivated by kiyoura and i stole some of your parsing
+# @author wired
+
+package radio;
+
+use strict;
+use warnings;
+use Switch;
+use LWP;
+use IO::Socket::INET;
+
+our $version = "1.0 glitch & wired";
+BEGIN {
+  commands->add('channel', 'normal', '!radio', 'radio->playing($nickname, $channel, $parameters);');
+}
+my $url = LWP::UserAgent->new();
+
+my $radio = 'http://streamlocity.com:8000/admin.cgi';
+
+$url->agent('Mozilla');
+
+my $res = $url->get($radio.'?mode=viewxml&page=1&pass=anime4lyfe');
+
+sub parse {
+	$res->content =~ /<$_[0]>(.*?)<\/$_[0]>/;
+	return defined $1 ? $1 : 0;
+}
+
+sub playing {
+	my ($nickname, $channel, @data) = ($_[1], $_[2], $_[3]);
+
+	open(my $song, '+>db/radio/playing.song') or die $!;
+	if(defined $song->getline && $song->getline ne &parse('SONGTITLE')) {
+		print $song &parse('SONGTITLE');
+		commands->send("PRIVMSG $channel &parse('SONGTITLE')\r\n");
+#		commands->send("PRIVMSG $channel testingblah Current Song: \x02&parse('SONGTITLE')\x02 Listeners: \x02&parse('CURRENTLISTENERS')\x02\r\n");
+		next;
+	}
+	
+	print $song &parse('SONGTITLE');
+	close($song);
+}
+
+1;

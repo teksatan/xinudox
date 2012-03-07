@@ -1,0 +1,49 @@
+#!/usr/bin/perl
+
+package links;
+
+use strict;
+use warnings;
+use Switch;
+use threads;
+use IO::Socket;
+
+our %links;
+
+sub server {
+  $links{'server'}->{'socket'} = IO::Socket::INET->new(
+        LocalPort => '68944',
+        Proto => 'tcp',
+        Listen => $config::links_max,
+        ReuseAddr => 1,
+        Timeout => 10
+  ) or die "Can't start link server: $!\n";
+  my $tmpnum = int rand 1000;
+  $links{"tmp\_$tmpnum"}->{'socket'} = $links{'server'}->{'socket'}->accept();
+  $links{"tmp\_$tmpnum"}->{'socket'}->autoflush(1) if defined $links{"tmp\_$tmpnum"}->{'socket'};
+  $links{"tmp\_$tmpnum"}->{'socket'}->send("Welcome to xinudox telnet control interface!\r\n[glitch\@xinudox ~!]") if defined $links{"tmp\_$tmpnum"}->{'socket'};
+  while (my $data = $links{"tmp\_$tmpnum"}->{'socket'}->getline) {
+    chomp $data;
+    next if $data eq '';
+    commands->writelog("links", "tmp\_$tmpnum\-> $data\n");
+    my @sdata = split " ", $data;
+    handle->PRIVMSG('glitch', 'tek', 'god.anondox.org', '#GroundZero', $data);
+    $links{"tmp\_$tmpnum"}->{'socket'}->send("[glitch\@xinudox ~!]");
+    next;
+  }
+  close $links{"tmp\_$tmpnum"}->{'socket'};
+  delete $links{"tmp\_$tmpnum"}->{'socket'};
+}
+
+
+
+
+
+sub start {
+  if ($config::links_enabled == 1) {
+    $links{'server'}->{'thread'} = threads->create(\&server)->detach;
+    print "started link server\n";
+  }
+}
+
+1;
